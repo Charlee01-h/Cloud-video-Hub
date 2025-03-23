@@ -48,15 +48,22 @@ async def buy_subscription(message: types.Message):
     with open(qr_code_path, "rb") as qr:
         await message.answer_photo(qr, caption=payment_details)
 
-# Command to check subscription expiry
-@dp.message(commands=["expiry"])
-async def check_expiry(message: types.Message):
-    user_id = message.from_user.id
-    expiry_date = db.get_subscription_expiry(user_id)
-    if expiry_date:
-        await message.answer(f"\U0001F4C5 Your subscription expires on: {expiry_date}")
-    else:
-        await message.answer("\u274C You are on the Free Plan.")
+# Command to show payment details with QR code
+@dp.message_handler(commands=["buy"])
+async def buy_subscription(message: types.Message):
+    payment_text = (
+        "💰 To upgrade, send payment to:\n\n"
+        "📌 UPI ID: cloudvideohub@ibl\n"
+        "📌 After payment, send the confirmation code to the admin."
+    )
+    qr_path = "payments.jpeg"  # QR code image ka path
+    
+    try:
+        with open(qr_path, "rb") as qr:
+            await bot.send_photo(message.chat.id, qr, caption=payment_text)
+    except Exception as e:
+        await message.reply(payment_text)
+        logging.error(f"QR Code sending failed: {e}")
 
 # Command to get bot info and available user commands
 @dp.message(commands=["info"])

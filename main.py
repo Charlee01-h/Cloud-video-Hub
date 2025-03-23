@@ -16,7 +16,7 @@ TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_ID = int(os.getenv("ADMIN_ID"))  # Bot admin ID
 
 # Initialize bot and dispatcher
-bot = Bot(token=TOKEN, parse_mode="HTML")
+bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
 dp = Dispatcher(storage=MemoryStorage())
 db = Database()
 

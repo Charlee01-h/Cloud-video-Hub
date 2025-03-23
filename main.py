@@ -3,7 +3,7 @@ import asyncio
 import logging
 import aiohttp
 from aiogram.client.default import DefaultBotProperties
-from aiogram import Bot, Dispatcher, types, F
+#from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.types import Message, FSInputFile
 from aiogram.fsm.storage.memory import MemoryStorage
